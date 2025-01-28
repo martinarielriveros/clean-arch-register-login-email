@@ -19,7 +19,8 @@ export class EmailService {
   constructor(
     public mailerService: string,
     public mailerEmail: string,
-    public mailerSecretKey: string
+    public mailerSecretKey: string,
+    private readonly postToProvider: boolean
   ) {
     this.transporter = nodemailer.createTransport({
       service: mailerService,
@@ -33,7 +34,7 @@ export class EmailService {
   //* this can be done with a USE CASE
   async sendEmail(options: SendMailOptions): Promise<boolean | string> {
     const { to, subject, htmlBody, attachements = [] } = options;
-
+    if (!this.postToProvider) return true;
     try {
       const sentInformation = await this.transporter.sendMail({
         to: to,

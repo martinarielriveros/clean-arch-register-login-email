@@ -41,6 +41,8 @@ export class AuthService {
       const genToken = new JwtAdapter(envs.JWT_SECRET);
       const token = await genToken.generateToken({ id: userEntity.id });
 
+      console.log("token generated", token);
+
       return {
         user: { ...userEntity, password },
         token: token,

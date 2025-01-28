@@ -24,13 +24,13 @@ export class UserEntity {
       role,
       emailValidated,
       img = "",
-    } = obj;
+    } = obj.user;
 
-    if (!_id && !id) throw CustomError.badRequest("Misssing id");
-    if (!name) throw CustomError.badRequest("Misssing name");
-    if (!email) throw CustomError.badRequest("Misssing email address");
-    if (!password) throw CustomError.badRequest("Misssing password");
-    if (!role) throw CustomError.badRequest("Misssing role");
+    if (!_id && !id) throw CustomError.badRequest("Missing id");
+    if (!name) throw CustomError.badRequest("Missing name");
+    if (!email) throw CustomError.badRequest("Missing email address");
+    if (!password) throw CustomError.badRequest("Missing password");
+    if (!role) throw CustomError.badRequest("Missing role");
     if (emailValidated === undefined)
       throw CustomError.badRequest("EmailValidates is required");
 

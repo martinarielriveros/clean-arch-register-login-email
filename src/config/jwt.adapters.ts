@@ -43,7 +43,6 @@ export class JwtAdapter {
             )
           );
         } else {
-          console.log("this is decoded", decoded);
           resolve(decoded);
         }
       });

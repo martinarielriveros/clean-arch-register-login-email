@@ -10,7 +10,6 @@ export interface ServerOptions {
 export class Server {
   #app: Express;
   #routes: Router;
-
   #port: number;
   #publicPath: string;
   #serverListener?: ReturnType<Express["listen"]>;
