@@ -11,12 +11,12 @@ export class CategoryRoutes {
 
     router.get(
       "/",
-      AuthMiddleWare.validateJWT,
+      [AuthMiddleWare.validateJWT],
       categoryController.getCategories
     );
     router.post(
       "/",
-      AuthMiddleWare.validateJWT,
+      [AuthMiddleWare.validateJWT],
       categoryController.createCategory
     );
 

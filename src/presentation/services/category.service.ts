@@ -17,6 +17,7 @@ export class CategoryService {
 
     try {
       const cat = await CategoryModel.findOne({ name: createCategoryDto.name });
+
       if (cat) throw CustomError.forbidden("Category already exists");
 
       const category = new CategoryModel({
@@ -24,7 +25,13 @@ export class CategoryService {
         user: user.id,
       });
       await category.save();
-      console.log("this is category in category after save", category);
+      //* category {
+      //*   name: 'chocolate',
+      //*   available: false,
+      //*   user: new ObjectId('679aa75cbac6a33a111c184f'),
+      //*   _id: new ObjectId('679b959dc907c391c3cae6a1'),
+      //*   __v: 0
+      //* }
       return {
         id: category.id,
         name: category.name,

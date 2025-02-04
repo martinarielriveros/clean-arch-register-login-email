@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "password is required"],
-    minlength: [3, "name should be at least 3 characters long"],
+    // minlength: [3, "name should be at least 3 characters long"],
   },
   role: {
     type: String,
@@ -39,4 +39,14 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-export const userModel = mongoose.model("User", userSchema);
+userSchema.set("toJSON", {
+  virtuals: true,
+  versionKey: false,
+  transform: function (doc, ret, options) {
+    delete ret._id;
+    delete ret.__v;
+    delete ret.password;
+  },
+});
+
+export const UserModel = mongoose.model("User", userSchema);

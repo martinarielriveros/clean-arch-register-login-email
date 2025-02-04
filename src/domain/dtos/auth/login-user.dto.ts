@@ -9,6 +9,8 @@ export class LoginUserDto {
 
   //* loginEntity === req.body from login controller
   static create(loginEntity: entityType): [LoginUserDto?, string?] {
+    console.log("this is loginEntity", loginEntity);
+
     const { email, password } = loginEntity;
 
     if (!email || !password) {

@@ -27,4 +27,9 @@ export class MongoDatabase {
       throw error;
     }
   }
+
+  static async disconnect() {
+    await mongoose.disconnect();
+    console.log("MongoDB connection closed");
+  }
 }

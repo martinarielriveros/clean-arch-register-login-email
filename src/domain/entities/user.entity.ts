@@ -15,8 +15,9 @@ export class UserEntity {
     public readonly img?: string
   ) {}
   static fromObject(obj: entityType) {
+    console.log("this is obj", obj);
+
     const {
-      _id,
       id,
       name,
       email,
@@ -26,7 +27,7 @@ export class UserEntity {
       img = "",
     } = obj.user;
 
-    if (!_id && !id) throw CustomError.badRequest("Missing id");
+    if (!id) throw CustomError.badRequest("Missing id");
     if (!name) throw CustomError.badRequest("Missing name");
     if (!email) throw CustomError.badRequest("Missing email address");
     if (!password) throw CustomError.badRequest("Missing password");
@@ -34,14 +35,6 @@ export class UserEntity {
     if (emailValidated === undefined)
       throw CustomError.badRequest("EmailValidates is required");
 
-    return new UserEntity(
-      _id || id,
-      name,
-      email,
-      password,
-      role,
-      emailValidated,
-      img
-    );
+    return new UserEntity(id, name, email, password, role, emailValidated, img);
   }
 }

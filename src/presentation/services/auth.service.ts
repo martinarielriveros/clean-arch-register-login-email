@@ -1,5 +1,5 @@
 import { BycriptAdapter, envs, JwtAdapter } from "../../config";
-import { userModel } from "../../data";
+import { UserModel } from "../../data";
 import { EmailService } from "./email.service";
 import {
   CustomError,
@@ -13,7 +13,7 @@ export class AuthService {
 
   public async registerUser(registerUserDto: RegisterUserDto) {
     try {
-      const user = await userModel.findOne({
+      const user = await UserModel.findOne({
         email: registerUserDto.email,
       });
 
@@ -26,10 +26,11 @@ export class AuthService {
         registerUserDto.password
       );
 
-      const sendEmailVal = await this.sendEmailValidationLink(
-        registerUserDto.email
-      );
-      const newUser = await userModel.create({
+      // const sendEmailVal = await this.sendEmailValidationLink(
+      //   registerUserDto.email
+      // );
+
+      const newUser = await UserModel.create({
         ...registerUserDto,
         password: registerUserDto.password,
       });
@@ -61,7 +62,7 @@ export class AuthService {
       const { email, password } = loginUserDto;
 
       //* Step 1: Find the user by email
-      const user = await userModel.findOne({ email });
+      const user = await UserModel.findOne({ email });
 
       if (!user) {
         throw CustomError.badRequest("No user found with that email/password");
@@ -132,7 +133,7 @@ export class AuthService {
       //* in our case, payoload is the "email" that was passed to sign()
       const payload = await genToken.validateToken(tokenReceived);
       if (payload instanceof CustomError) throw payload;
-      const user = await userModel.findOne({ email: payload });
+      const user = await UserModel.findOne({ email: payload });
       if (!user) throw CustomError.serverError("No user found with that email");
       user.emailValidated = true;
       await user.save();

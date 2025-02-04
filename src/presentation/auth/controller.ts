@@ -3,10 +3,11 @@ import { CustomError, RegisterUserDto, LoginUserDto } from "../../domain";
 import { AuthService } from "../services/auth.service";
 
 export class AuthController {
-  //*DI
   constructor(public readonly authService: AuthService) {}
 
   loginUser = (req: Request, res: Response) => {
+    console.log("this is req.body", req.body);
+
     const [loginUserDto, errorMessage] = LoginUserDto.create(req.body);
     //* DTO checks for consistency in the frontend info sent by user (no missing fields or email correctness check)
 
